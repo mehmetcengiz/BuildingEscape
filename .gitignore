@@ -111,3 +111,19 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+
++##########################
+ +# Unreal Generated Files #
+ +##########################
+ +*/Build
+ +*/Binaries
+ +*/DerivedDataCache
+ +*/Intermediate
+ +*/Saved
+ +BuildingEscape/Content/StarterContent/
+ +
+ +######################
+ +# VS Generated Files #
+ +######################
+ +*.VC.db
