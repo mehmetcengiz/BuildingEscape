@@ -38,18 +38,18 @@ void UOpenDoor::BeginPlay()
 
 
 // Called every frame
-void UOpenDoor::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction )
+void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
-	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// Poll the Trigger Volume
-	if(PressurePlate->IsOverlappingActor(ActorThatOpens))
+	if (PressurePlate->IsOverlappingActor(ActorThatOpens))
 	{
 		OpenDoor();
 		LastDoorOpenTime = GetWorld()->GetTimeSeconds();
 	}
-	
-	if((GetWorld()->GetTimeSeconds() - LastDoorOpenTime > DoorCloseDelay))
+
+	if ((GetWorld()->GetTimeSeconds() - LastDoorOpenTime > DoorCloseDelay))
 	{
 		CloseDoor();
 	}

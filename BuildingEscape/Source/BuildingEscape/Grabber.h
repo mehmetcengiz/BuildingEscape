@@ -20,11 +20,17 @@ public:
 	
 	// Called every frame
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
+
 private:
 	//How far ahead of the player can we reach in cm.
 	UPROPERTY(EditAnywhere)
 	float Reach = 100.f;
 	
 	AActor *HitedActor;
-	
+
+
+	UPhysicsHandleComponent* PhysicsHandle = nullptr;
+	UInputComponent* InputComponent = nullptr;
+	//Ray-cast and grap what's in reach.
+	void Grab();
 };
