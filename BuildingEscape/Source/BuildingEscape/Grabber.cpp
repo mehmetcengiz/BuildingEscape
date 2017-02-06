@@ -21,6 +21,7 @@ void UGrabber::BeginPlay(){
 void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ){
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
 
+	if (!PhysicsHandle) { return; }
 	if(PhysicsHandle->GrabbedComponent) {
 		//Move the object that we're holding.
 		PhysicsHandle->SetTargetLocation(GetReachLineEnd());
@@ -36,6 +37,7 @@ void UGrabber::FindPhysicsHandleComponent(){
 
 void UGrabber::SetupInputComponent(){
 	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
+	
 	if (InputComponent) {
 		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
 		InputComponent->BindAction("Grab", IE_Released, this, &UGrabber::Released);
@@ -51,6 +53,7 @@ void UGrabber::Grab(){
 	auto ActorHit = HitResult.GetActor();
 
 	if(ActorHit) {
+		if (!PhysicsHandle) { return; }
 		PhysicsHandle->GrabComponent(
 			ComponentToGrab, 
 			NAME_None, //No bones needed.
@@ -61,7 +64,8 @@ void UGrabber::Grab(){
 }
 
 void UGrabber::Released(){
-		PhysicsHandle->ReleaseComponent();
+	if (!PhysicsHandle) { return; }
+	PhysicsHandle->ReleaseComponent();
 }
 
 const FHitResult UGrabber::GetFirstPhysicsBodyInReach(){
